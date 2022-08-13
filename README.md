@@ -2,7 +2,7 @@
 
 A simple software that allows you to enable or disable Minecraft mods.
 
-[![screenshot](https://raw.githubusercontent.com/Koizeay/Minecraft-Mods-Manager/main/_github/screenshot.png)]()
+![screenshot](https://raw.githubusercontent.com/Koizeay/Minecraft-Mods-Manager/main/_github/screenshot.png)
 
 ## Download
 For Windows only  
