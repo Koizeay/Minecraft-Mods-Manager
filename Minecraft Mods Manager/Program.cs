@@ -9,7 +9,7 @@ namespace Minecraft_Mods_Manager
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            Application.Run(new FormMain());
         }
     }
 }
