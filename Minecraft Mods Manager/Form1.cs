@@ -4,7 +4,7 @@ namespace Minecraft_Mods_Manager
 {
     public partial class FormMain : Form
     {
-        private string? ModsDirectory;
+        private string? modsDirectory;
         private string supportedExtensions = "*.jar,*.no";
         public FormMain()
         {
@@ -18,8 +18,8 @@ namespace Minecraft_Mods_Manager
             if (Directory.Exists(defaultDirectory))
             {
                 fillList(defaultDirectory);
-                ModsDirectory = defaultDirectory;
-                textBoxPath.Text = ModsDirectory;
+                modsDirectory = defaultDirectory;
+                textBoxPath.Text = modsDirectory;
             }
             else
             {
@@ -37,12 +37,12 @@ namespace Minecraft_Mods_Manager
             if (folderResult == DialogResult.OK)
             {
                 fillList(folderBrowserDialog.SelectedPath);
-                ModsDirectory = folderBrowserDialog.SelectedPath;
-                textBoxPath.Text = ModsDirectory;
+                modsDirectory = folderBrowserDialog.SelectedPath;
+                textBoxPath.Text = modsDirectory;
             }
             else
             {
-                if (ModsDirectory == null)
+                if (modsDirectory == null)
                 {
                     string message = "You have not selected any folder.";
                     string title = "No mods folder selected";
@@ -58,7 +58,7 @@ namespace Minecraft_Mods_Manager
             checkedListBoxMods.Items.Clear();
 
             IEnumerable<string> files = Directory.GetFiles(directory, "*.*", SearchOption.TopDirectoryOnly).Where(s => supportedExtensions.Contains(Path.GetExtension(s).ToLower()));
-            for(int i = 0; i < files.Count(); i++)
+            for (int i = 0; i < files.Count(); i++)
             {
                 var fileName = Path.GetFileNameWithoutExtension(new FileInfo(files.ElementAt(i)).Name);
                 var fileExtension = new FileInfo(files.ElementAt(i)).Extension;
@@ -87,9 +87,9 @@ namespace Minecraft_Mods_Manager
 
         private void changeFileExtension(string? fileName, bool isNowEnabled)
         {
-            if (fileName != null && ModsDirectory != null)
+            if (fileName != null && modsDirectory != null)
             {
-                string filePathWithoutExtension = Path.Combine(ModsDirectory, fileName);
+                string filePathWithoutExtension = Path.Combine(modsDirectory, fileName);
                 if (isNowEnabled)
                 {
                     string filePath = filePathWithoutExtension + ".no";
@@ -117,9 +117,9 @@ namespace Minecraft_Mods_Manager
 
         private void buttonReload_Click(object sender, EventArgs e)
         {
-            if (ModsDirectory != null)
+            if (modsDirectory != null)
             {
-                fillList(ModsDirectory);
+                fillList(modsDirectory);
             }
         }
 
@@ -127,11 +127,38 @@ namespace Minecraft_Mods_Manager
         {
             try
             {
-                Process.Start("explorer.exe", ModsDirectory);
+                Process.Start("explorer.exe", modsDirectory);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error while opening the mods folder in file explorer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if (checkedListBoxMods.SelectedIndex != -1)
+            {
+                string fileName = checkedListBoxMods.Text;
+                string extension = checkedListBoxMods.GetItemCheckState(checkedListBoxMods.SelectedIndex) == CheckState.Checked ? ".jar" : ".no";
+
+                DialogResult dialogResult = MessageBox.Show("Do you really want to delete the \"" + fileName + "\" mod?", "Delete this mod?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    if (modsDirectory != null)
+                    {
+                        try
+                        {
+                            string path = Path.Combine(modsDirectory, fileName + extension);
+                            File.Delete(path);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Error when deleting selected mod.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        fillList(modsDirectory);
+                    }
+                }
             }
         }
     }

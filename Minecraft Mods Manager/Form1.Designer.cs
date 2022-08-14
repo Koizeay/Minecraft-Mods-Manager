@@ -36,6 +36,7 @@
             this.buttonPath = new System.Windows.Forms.Button();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.buttonOpenModsDir = new System.Windows.Forms.Button();
+            this.buttonDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // checkedListBoxMods
@@ -109,11 +110,23 @@
             this.buttonOpenModsDir.UseVisualStyleBackColor = true;
             this.buttonOpenModsDir.Click += new System.EventHandler(this.buttonOpenModsDir_Click);
             // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDelete.Location = new System.Drawing.Point(12, 366);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(75, 22);
+            this.buttonDelete.TabIndex = 6;
+            this.buttonDelete.Text = "Delete";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(799, 400);
+            this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonOpenModsDir);
             this.Controls.Add(this.buttonPath);
             this.Controls.Add(this.textBoxPath);
@@ -138,5 +151,6 @@
         private Button buttonPath;
         private FolderBrowserDialog folderBrowserDialog;
         private Button buttonOpenModsDir;
+        private Button buttonDelete;
     }
 }
