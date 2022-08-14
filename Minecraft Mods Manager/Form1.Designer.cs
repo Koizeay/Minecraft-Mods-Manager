@@ -134,6 +134,7 @@
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.checkedListBoxMods);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(350, 320);
             this.Name = "FormMain";
             this.Text = "Minecraft Mods Manager";
             this.Load += new System.EventHandler(this.FormMain_Load);
